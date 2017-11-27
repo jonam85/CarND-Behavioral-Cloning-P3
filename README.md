@@ -17,7 +17,7 @@ To meet specifications, the project will required submitting five files:
 * [model.py](model.py) (script used to create and train the model)
 * [drive.py](drive.py) (script to drive the car)
 * a model file, [model_track_1.h5](model_track_1.h5) (a trained Keras model)
-* a report [writeup](writeup_report) file
+* a report [writeup](writeup_report.md) file
 * a [video](model_track_1__run.mp4) file recording of the vehicle driving autonomously around the track for at least one full lap 
 
 As an optional exercise the model is extended to run in track 2 jungle theme which is slightly complex compared to track 1, with few ramps and downs, shadows and with sharp turns.
@@ -41,5 +41,5 @@ The lab environment can be created with CarND Term1 Starter Kit. Click [here](ht
 
 The simulator can be downloaded from the classroom. In the classroom, sample data have also been provided that can optionally be used to help train the model.
 
-More information about this project and the usage of the files are in [writeup_report](writeup_report) file.
+More information about this project and the usage of the files are in [writeup_report](writeup_report.md) file.
 
