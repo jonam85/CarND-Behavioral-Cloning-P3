@@ -1,8 +1,8 @@
-#Behavioral Cloning 
+# Behavioral Cloning 
 
 Author : Manoj Kumar Subramanian
 
-
+------
 
 ## Overview
 
@@ -12,6 +12,8 @@ In this project, deep neural networks and convolutional neural networks are used
 
 First we need to steer a car around a tracks for data collection. Then we'll use image data and steering angles to train a neural network and then use this model to drive the car autonomously around the tracks.
 
+-----
+
 ### Behavioral Cloning Project
 
 The goals / steps of this project are the following:
@@ -20,14 +22,12 @@ The goals / steps of this project are the following:
 * Train and validate the model with a training and validation set
 * Test that the model successfully drives around track one without leaving the road
 * Summarize the results with a written report
-
-
-
+--------------
 
 ## Rubric Points
 **1. Submission includes all required files and can be used to run the simulator in autonomous mode**
 
-### Review Set
+**Review Set**
 
 To meet specifications, the project required submitting five files: 
 
@@ -40,6 +40,8 @@ To meet specifications, the project required submitting five files:
 As an optional exercise the model is extended to run in track 2 jungle theme which is slightly complex compared to track 1, with few ramps and downs, shadows and with sharp turns.
 
 The same model.py script is used to train the model, [model_track_both.h5](BothTracks/model_track_both.h5) and this [video2](BothTracks/model_track_both_run.mp4) provides the simulation corresponding to the trained model parameters on both the tracks.
+
+---------
 
 **2. Submission includes functional code**
 
@@ -54,11 +56,15 @@ For the model file model_track_1.h5, the track 1 runs with the set speed from 8 
 
 For the generated model file model_track_both.h5, both the tracks run with the set speed as 9 to 12 without going off road.
 
+----
+
 **3. Submission code is usable and readable**
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-###Model Architecture and Training Strategy
+----------
+
+### Model Architecture and Training Strategy
 
 **1. An appropriate model architecture has been employed**
 
@@ -108,6 +114,8 @@ model.compile(loss = 'mse', optimizer = 'adam')
 ```
 The model includes ELU layers to introduce nonlinearity as suggested by my reviewer in the previous project and I did get good results with that. 
 
+-----------
+
 **2. Attempts to reduce over-fitting in the model**
 
 The model contains 2 dropout layers in order to reduce over-fitting. 
@@ -126,9 +134,13 @@ The converging values between the training loss and the validation loss suggests
 
 The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
+-----------
+
 **3. Model parameter tuning**
 
 The model used an Adam optimizer with the default parameters, so the learning rate was not tuned manually.
+
+-----------
 
 **4. Appropriate training data**
 
@@ -138,7 +150,7 @@ For details about how I created the training data, see the next section.
 
 ------
 
-##Model Architecture and Training Strategy
+## Model Architecture and Training Strategy
 
 **1. Solution Design Approach**
 
@@ -153,13 +165,13 @@ I didn't perform any additional augmentation but used the flipping of all the th
 
 | Original Image                           | Flipped Image                            |
 | ---------------------------------------- | ---------------------------------------- |
-| ![center_2017_11_21_23_35_25_980](../../../../../../Users/Anya/Downloads/center_2017_11_21_23_35_25_980.jpg) | ![center_2017_11_21_23_35_25_980_flipped](../../../../../../Users/Anya/Downloads/center_2017_11_21_23_35_25_980_flipped.jpg) |
+| ![center_2017_11_21_23_35_25_980](examples/center_2017_11_21_23_35_25_980.jpg) | ![center_2017_11_21_23_35_25_980_flipped](examples/center_2017_11_21_23_35_25_980_flipped.jpg) |
 
 I have used a correction factor of 0.2 for the steering angle for the images from left and right cameras.
 
 I did the normalization on the lambda input layer and did a cropping using the cropping layer to remove the unwanted sky and car hood from the inputs.
 
-![center_2017_11_21_23_35_25_980_cropped](../../../../../../Users/Anya/Downloads/center_2017_11_21_23_35_25_980_cropped.jpg)
+![center_2017_11_21_23_35_25_980_cropped](examples/center_2017_11_21_23_35_25_980_cropped.jpg)
 
 ------
 
