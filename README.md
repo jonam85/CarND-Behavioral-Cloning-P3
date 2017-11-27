@@ -18,7 +18,7 @@ To meet specifications, the project will required submitting five files:
 * [drive.py](drive.py) (script to drive the car)
 * a model file, [model_track_1.h5](model_track_1.h5) (a trained Keras model)
 * a report [writeup](writeup_report.md) file
-* a [video](model_track_1__run.mp4) file recording of the vehicle driving autonomously around the track for at least one full lap 
+* a [video](model_track_1_run.mp4) file recording of the vehicle driving autonomously around the track for at least one full lap 
 
 As an optional exercise the model is extended to run in track 2 jungle theme which is slightly complex compared to track 1, with few ramps and downs, shadows and with sharp turns.
 
@@ -33,7 +33,7 @@ The goals / steps of this project are the following:
 * Summarize the results with a written report
 
 ### Dependencies
-This lab requires:
+This project requires:
 
 * [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit)
 

@@ -34,8 +34,8 @@ To meet specifications, the project required submitting five files:
 - [model.py](model.py) (script used to create and train the model)
 - [drive.py](drive.py) (script to drive the car)
 - a model file, [model_track_1.h5](model_track_1.h5) (a trained Keras model)
-- a report [writeup](writeup_report) file
-- a [video](model_track_1__run.mp4) file recording of the vehicle driving autonomously around the track for at least one full lap 
+- a report [writeup](writeup_report.md) file (this file)
+- a [video](model_track_1_run.mp4) file recording of the vehicle driving autonomously around the track for at least one full lap 
 
 As an optional exercise the model is extended to run in track 2 jungle theme which is slightly complex compared to track 1, with few ramps and downs, shadows and with sharp turns.
 
@@ -236,7 +236,11 @@ The following were done on a recursive manner to produce the result that is capt
   **On the training,**
 
 
-* First trained the model with the carefully driven corner file so that the variations on both side larger angles(considering the flipped images) were well captured by the model.
+* I have used the AWS gpu2.2xlarge instance to train the model.
+
+* First trained the model with the carefully driven corner file so that the variations on both side larger angles(considering the flipped images) were well captured by the model. 
+
+* An epoch of 5 and batch size as 32 is used in the generator.
 
 * Loaded the model with weights from previous step and trained the model for recovery track data.
 
