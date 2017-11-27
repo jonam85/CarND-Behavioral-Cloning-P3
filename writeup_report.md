@@ -61,19 +61,33 @@ The model.py file contains the code for training and saving the convolution neur
 
 ####1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
+My model, inspired by both the NVIDIA and LeNet5 model architecture, consists of layers that can be visualized as extended LeNet5 model but a reduced NVIDIA model. 
+
+
 
 The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
 
 ####2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+The model contains dropout layers in order to reduce overfitting. 
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting. 
+
+```
+dict_keys(['loss', 'val_loss'])
+
+[0.021351781623013835, 0.011106089238755987, 0.011046232438950551, 0.010437979799137905, 0.010400431804672474]
+
+[0.011114087152796296, 0.011068746433731649, 0.011129142931447579, 0.0092389183477140386, 0.010090619466258305]
+```
+
+The converging values between the training loss and the validation loss suggests that the model is not overfitting the data.
+
+The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 ####3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer with the default parameters, so the learning rate was not tuned manually.
 
 ####4. Appropriate training data
 
@@ -85,9 +99,11 @@ For details about how I created the training data, see the next section.
 
 ####1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+Initially, I captured about 2 laps of the first track data on to a folder.
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+I have followed the same sequence of code that was mentioned in the lecture videos. By making the dataset samples from the csv file, splitting the set into training and validation samples, using a generator to batch process the samples, as it is from the lecture videos, with the setting of steering corrections of 0.2 for the left and right images, I was able to move around the vehicle in the autonomous mode.
+
+My first step was to use a convolution neural network model similar to the LeNet model but since the size of the image to compare is quite high 160x320 compared to the 32x32 image set discussed in LeNet. So I added 
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
@@ -101,32 +117,19 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 ####2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture consisted of a 4 convolution layers (2 5x5 and 2 3x3 filter sizes) in the network, each having a rigorous Max pooling layer to cut down the input size with increase number of filters followed by 3 dense layers. I have chosen the number of filters to be 16, 32, 48 and 64 as a random but progressive but the first run itself proven that the model is pretty fine with the initial level of predictions. So, I retuned the base architecture to suit the dataset with only additions of drop out layers. The default, (lecture referenced) , Mean square error loss function and ADAM optimizer without any tweaking in the parameters were used.
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+Here is a visualization of the architecture.
 
-![alt text][image1]
+
 
 ####3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+To capture good driving behavior, I first recorded about two laps on track one using center lane driving. 
 
-![alt text][image2]
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to steer back itself when it approaches the road edge. This is enhanced by the left and right images are they provide a good offset for the data samples. Then the behavior at the sharp corners were recorded by carefully driving at a slow pace multiple times.
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
-
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
+To augment the data sat, I also flipped images and angles.
 
 After the collection process, I had X number of data points. I then preprocessed this data by ...
 
@@ -135,66 +138,3 @@ I finally randomly shuffled the data set and put Y% of the data into a validatio
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
-
-
-
-
-## Details About Files In This Directory
-
-### `drive.py`
-
-Usage of `drive.py` requires you have saved the trained model as an h5 file, for e.g. `model.h5`. See the [Keras documentation](https://keras.io/getting-started/faq/#how-can-i-save-a-keras-model) for how to create this file using the following command:
-
-```sh
-model.save(filepath)
-```
-
-Once the model has been saved, it can be used with drive.py using this command:
-
-```sh
-python drive.py model.h5 [--speed 12]
-```
-
-Note: There is known local system's setting issue with replacing "," with "." when using drive.py. When this happens it can make predicted steering values clipped to max/min values. If this occurs, a known fix for this is to add "export LANG=en_US.utf8" to the bashrc file.
-
-#### Saving a video of the autonomous agent
-
-```sh
-python drive.py model.h5 run1 
-```
-
-The fourth argument, `run1`, is the directory in which to save the images seen by the agent. If the directory already exists, it'll be overwritten.
-
-```sh
-ls run1
-
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_424.jpg
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_451.jpg
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_477.jpg
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_528.jpg
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_573.jpg
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_618.jpg
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_697.jpg
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_723.jpg
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_749.jpg
-[2017-01-09 16:10:23 EST]  12KiB 2017_01_09_21_10_23_817.jpg
-...
-```
-
-The image file name is a timestamp of when the image was seen. This information is used by `video.py` to create a chronological video of the agent driving.
-
-### `video.py`
-
-```sh
-python video.py run1
-```
-
-Creates a video based on images found in the `run1` directory. The name of the video will be the name of the directory followed by `'.mp4'`, so, in this case the video will be `run1.mp4`.
-
-Optionally, one can specify the FPS (frames per second) of the video:
-
-```sh
-python video.py run1 --fps 48
-```
-
-Will run the video at 48 FPS. The default FPS is 60.
